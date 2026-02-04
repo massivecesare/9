@@ -1,0 +1,518 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <meta name="description" content="BubbleBee - Luxury Retreat & Glamping in Abruzzo">
+  <title>BUBBLEBEE | Luxury Retreat Abruzzo</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&family=Playfair+Display:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+
+  <style>
+    :root{
+      --accent: #8a6d3b; /* Oro antico */
+      --bg: #fafafa;
+      --text: #444;
+      --heading-color: #222;
+      --nav-bg: rgba(255,255,255,0.98);
+      --radius: 12px;
+      --max-width: 1200px;
+      --shadow: 0 10px 30px rgba(0,0,0,0.08);
+    }
+
+    /* Reset minimale */
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    
+    body{
+      margin:0;
+      font-family: 'Lato', sans-serif; /* Font moderno per il testo */
+      color:var(--text);
+      background:var(--bg);
+      -webkit-font-smoothing:antialiased;
+      line-height:1.6;
+      scroll-behavior:smooth;
+    }
+
+    h1, h2, h3, h4 {
+      font-family: 'Playfair Display', serif; /* Font elegante per i titoli */
+      color: var(--heading-color);
+      font-weight: 700;
+    }
+
+    .container{
+      max-width:var(--max-width);
+      margin:0 auto;
+      padding:0 24px;
+    }
+
+    /* NAV */
+    .topbar{
+      position:fixed;
+      top:20px;
+      right:20px;
+      z-index:1200;
+      display:flex;
+      align-items:center;
+      gap:12px;
+    }
+
+    .nav-panel{
+      background:var(--nav-bg);
+      padding:12px 20px;
+      border-radius:30px; /* Più arrotondato */
+      box-shadow: var(--shadow);
+      display:flex;
+      align-items:center;
+      backdrop-filter: blur(10px);
+    }
+
+    .nav-links{
+      display:flex;
+      gap:16px;
+    }
+
+    .nav-links a{
+      text-decoration:none;
+      color:var(--heading-color);
+      font-weight:700;
+      font-size:0.85rem;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      padding:8px 12px;
+      border-radius:20px;
+      transition: all 0.3s ease;
+    }
+
+    .nav-links a:hover{
+      color:var(--accent);
+    }
+
+    /* Hamburger per mobile */
+    .hamburger{
+      display:none;
+      width:40px;
+      height:40px;
+      background:transparent;
+      border:none;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      cursor:pointer;
+      padding: 0;
+    }
+
+    .hamburger .bar{
+      width:24px;
+      height:2px;
+      background:var(--heading-color);
+      position:relative;
+      transition: all 0.3s;
+    }
+    .hamburger .bar::before,
+    .hamburger .bar::after{
+      content:"";
+      position:absolute;
+      left:0;
+      width:24px;
+      height:2px;
+      background:var(--heading-color);
+      transition: all 0.3s;
+    }
+    .hamburger .bar::before{top:-8px}
+    .hamburger .bar::after{top:8px}
+
+    /* Mobile menu (overlay) */
+    .mobile-menu{
+      position:fixed;
+      inset: 0;
+      background: #fff;
+      transform:translateY(-100%);
+      transition:transform .4s cubic-bezier(0.77, 0, 0.175, 1);
+      z-index:1100;
+      padding:40px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+    }
+    .mobile-menu.open{transform:translateY(0)}
+    
+    .mobile-menu .links{
+      display:flex;
+      flex-direction:column;
+      gap:20px;
+      text-align: center;
+    }
+    .mobile-menu a{
+      text-decoration:none;
+      color:var(--heading-color);
+      font-family: 'Playfair Display', serif;
+      font-size: 1.5rem;
+      font-weight:700;
+    }
+    
+    .menu-close-btn {
+        position: absolute;
+        top: 20px;
+        right: 20px;
+        border: none;
+        background: none;
+        font-size: 1.2rem;
+        cursor: pointer;
+        padding: 10px;
+    }
+
+    /* HERO */
+    .hero{
+      height:85vh; /* Più impattante */
+      min-height:500px;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      color:#fff;
+      text-align:center;
+      /* Immagine di sfondo generica Abruzzo/Natura */
+      background-image:url("https://images.unsplash.com/photo-1445964047600-cdbdb873673d?q=80&w=1600&auto=format&fit=crop");
+      background-size:cover;
+      background-position:center;
+      position:relative;
+    }
+    .hero::after{
+      content:"";
+      position:absolute;
+      inset:0;
+      background:linear-gradient(180deg, rgba(0,0,0,0.1), rgba(0,0,0,0.5));
+    }
+    .hero .hero-inner{
+      position:relative;
+      z-index:2;
+      padding:20px;
+      max-width:900px;
+    }
+    .hero h1{
+      margin:0;
+      font-size:clamp(2.5rem, 6vw, 5rem);
+      letter-spacing:-1px;
+      color: #fff;
+      text-shadow: 0 4px 20px rgba(0,0,0,0.3);
+    }
+    .hero p{
+      margin-top:20px;
+      color:rgba(255,255,255,0.95);
+      font-size:clamp(1.1rem, 2.5vw, 1.4rem);
+      font-weight: 300;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+    }
+
+    /* SEZIONI */
+    section{
+      padding:80px 0;
+      border-bottom:1px solid rgba(0,0,0,0.05);
+    }
+    
+    section h2{
+      color:var(--accent);
+      font-size:clamp(2rem, 4vw, 3rem);
+      margin:0 0 24px 0;
+    }
+    
+    .section-intro {
+        font-size: 1.15rem;
+        max-width: 800px;
+        color: #666;
+        margin-bottom: 40px;
+    }
+
+    .media{
+      display:grid;
+      grid-template-columns: 1fr 1fr;
+      gap:40px;
+      align-items:center;
+    }
+    
+    .media.reverse {
+        direction: rtl; /* Per alternare destra/sinistra visivamente */
+    }
+    .media.reverse > div {
+        direction: ltr;
+    }
+
+    .media img{
+      width:100%;
+      height:400px; /* Più altezza per le foto */
+      object-fit:cover;
+      border-radius:var(--radius);
+      box-shadow:var(--shadow);
+      transition: transform 0.4s ease;
+    }
+    .media img:hover {
+        transform: scale(1.02);
+    }
+
+    .content-box h3 {
+        margin-top: 0;
+        font-size: 1.5rem;
+        margin-bottom: 1rem;
+        color: var(--accent);
+    }
+    
+    /* Lista stilizzata per Cose da Fare */
+    .styled-list {
+        list-style: none;
+        padding: 0;
+    }
+    .styled-list li {
+        margin-bottom: 0.8rem;
+        padding-left: 0;
+        position: relative;
+    }
+    .styled-list strong {
+        color: var(--heading-color);
+    }
+
+    /* Footer */
+    footer{
+      padding:60px 0;
+      text-align:center;
+      background:#1a1a1a;
+      color:#888;
+      font-size:0.9rem;
+      letter-spacing: 1px;
+    }
+    footer strong { color: #fff; }
+
+    /* Media queries */
+    @media (max-width:900px){
+      .media, .media.reverse{grid-template-columns:1fr; direction: ltr;}
+      .nav-links{display:none}
+      .hamburger{display:flex}
+      .media img{height:300px}
+    }
+  </style>
+</head>
+<body>
+
+  <div class="topbar container">
+    <div class="nav-panel">
+      <a href="#" style="text-decoration:none; font-weight:900; color:var(--accent); margin-right:20px; font-family:'Playfair Display'; font-size:1.2rem;">BUBBLEBEE</a>
+      
+      <nav class="nav-links">
+        <a href="#camere">Camere</a>
+        <a href="#bolle">Bolle</a>
+        <a href="#esperienze">Esperienze</a>
+        <a href="#dove-siamo">Dove Siamo</a>
+        <a href="#cose-fare">Dintorni</a>
+        <a href="#contatti">Contatti</a>
+      </nav>
+
+      <button class="hamburger" id="menuToggle" aria-label="Menu">
+        <span class="bar"></span>
+      </button>
+    </div>
+  </div>
+
+  <div id="mobileMenu" class="mobile-menu">
+    <button class="menu-close-btn" id="menuClose">✕ Chiudi</button>
+    <div class="links">
+      <a href="#camere" onclick="closeMenu()">Camere</a>
+      <a href="#bolle" onclick="closeMenu()">Bolle</a>
+      <a href="#esperienze" onclick="closeMenu()">Esperienze & Prodotti</a>
+      <a href="#dove-siamo" onclick="closeMenu()">Dove Siamo</a>
+      <a href="#cose-fare" onclick="closeMenu()">Cose da Fare</a>
+      <a href="#contatti" onclick="closeMenu()">Contatti</a>
+    </div>
+  </div>
+
+  <header class="hero">
+    <div class="hero-inner container">
+      <h1>BUBBLEBEE</h1>
+      <p>Luxury Retreat & Nature Sanctuary in Abruzzo</p>
+    </div>
+  </header>
+
+  <main>
+    <section id="camere">
+      <div class="container">
+        <div class="media">
+          <img src="https://images.unsplash.com/photo-1611892440504-42a792e24d32?q=80&w=1200&auto=format&fit=crop" alt="Camere Luxury">
+          <div class="content-box">
+            <h2>Le Camere</h2>
+            <p>Le nostre camere combinano eleganza contemporanea e comfort assoluto. Progettate per offrire un’esperienza di relax totale, ogni dettaglio è curato per il vostro benessere.</p>
+            <ul class="styled-list">
+                <li>✦ Vista panoramica sulle colline</li>
+                <li>✦ Bagno privato con finiture di pregio</li>
+                <li>✦ Biancheria in lino naturale</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="bolle">
+      <div class="container">
+        <div class="media reverse">
+          <img src="https://images.unsplash.com/photo-1535205500880-97f2560ce013?q=80&w=1200&auto=format&fit=crop" alt="Bubble Room">
+          <div class="content-box">
+            <h2>Le Bolle</h2>
+            <p>Dormire immersi nella natura, protetti da una bolla trasparente sotto un cielo stellato. Un'esperienza romantica e sensoriale unica.</p>
+            <ul class="styled-list">
+                <li>✦ Privacy totale nel bosco privato</li>
+                <li>✦ Comfort termico tutto l'anno</li>
+                <li>✦ Telescopio in dotazione</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="sala-eventi">
+      <div class="container">
+        <div class="media">
+          <img src="https://images.unsplash.com/photo-1519167758481-83f550bb49b3?q=80&w=1200&auto=format&fit=crop" alt="Sala Eventi">
+          <div class="content-box">
+            <h2>Sala Eventi</h2>
+            <p>Una struttura elegante e modulabile, immersa nel verde. Lo scenario perfetto per matrimoni intimi, meeting aziendali e celebrazioni esclusive.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="esperienze">
+      <div class="container">
+        <h2>Esperienze & Sapori</h2>
+        <p class="section-intro">L'Abruzzo è una terra da gustare e da vivere. Dalla raccolta delle materie prime alla tavola.</p>
+        
+        <div class="media" style="margin-bottom: 60px;">
+          <img src="https://images.unsplash.com/photo-1559339352-11d035aa65de?q=80&w=1200&auto=format&fit=crop" alt="Prodotti Locali">
+          <div class="content-box">
+            <h3>Prodotti Locali</h3>
+            <p>Selezione dei migliori prodotti del territorio: olio extravergine d'oliva, vini Montepulciano, miele millefiori e specialità artigianali disponibili nel nostro shop.</p>
+          </div>
+        </div>
+
+        <div class="media reverse">
+          <img src="https://images.unsplash.com/photo-1605218427368-35b0d0c3eb27?q=80&w=1200&auto=format&fit=crop" alt="Giornata del Contadino">
+          <div class="content-box">
+            <h3>La Giornata del Contadino</h3>
+            <p>Un evento autentico per riconnettersi con la terra: raccolta dei prodotti stagionali, laboratori di cucina tradizionale e degustazioni conviviali in vigna.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="dove-siamo">
+      <div class="container">
+        <h2>Dove Siamo</h2>
+        <div class="media">
+           <div class="content-box">
+            <p><strong>Sant’Eusanio del Sangro</strong> è un tranquillo borgo dell’Abruzzo interno, situato in provincia di Chieti. Il paese sorge a pochi minuti dalla Valle del Sangro, un’area ricca di natura, incorniciata a sud dallo scorrere del fiume Sangro.</p>
+            <p>Il centro abitato, anticamente noto come <em>Monteclo</em>, conserva un’atmosfera autentica. La posizione strategica permette di raggiungere in soli 25 minuti la <strong>Costa dei Trabocchi</strong> e in 30 minuti le montagne della <strong>Majella</strong>.</p>
+            <p><small>Via Castellata 6, Sant’Eusanio del Sangro (CH)</small></p>
+          </div>
+          <img src="https://images.unsplash.com/photo-1543745265-0a9b8375e27a?q=80&w=1200&auto=format&fit=crop" alt="Paesaggio Abruzzo">
+        </div>
+      </div>
+    </section>
+
+    <section id="cose-fare">
+      <div class="container">
+        <h2>Cose da Fare (entro 30 min)</h2>
+        <p class="section-intro">La nostra posizione è strategica: al centro tra mare e montagna.</p>
+
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 40px;">
+            
+            <div class="content-box">
+                <h3>🏰 Borghi & Cultura</h3>
+                <ul class="styled-list">
+                    <li><strong>Lanciano (15 min):</strong> Città del Miracolo Eucaristico, centro storico medievale.</li>
+                    <li><strong>Casoli (10 min):</strong> Castello Ducale e vista panoramica.</li>
+                    <li><strong>Altino (10 min):</strong> Patria del Peperone Dolce (Presidio Slow Food).</li>
+                    <li><strong>Sant'Eusanio:</strong> Casa Museo Cesare De Titta.</li>
+                </ul>
+            </div>
+
+            <div class="content-box">
+                <h3>🌳 Natura & Escursioni</h3>
+                <ul class="styled-list">
+                    <li><strong>Oasi WWF Serranella (10 min):</strong> Birdwatching e sentieri facili.</li>
+                    <li><strong>Gole di Fara San Martino (25 min):</strong> La porta della Majella.</li>
+                    <li><strong>Sorgenti del Fiume Verde (20 min):</strong> Acque cristalline e picnic.</li>
+                </ul>
+            </div>
+
+            <div class="content-box">
+                <h3>🏖️ Mare & Costa</h3>
+                <ul class="styled-list">
+                    <li><strong>Costa dei Trabocchi (25 min):</strong> San Vito Chietino e la Via Verde ciclabile.</li>
+                    <li><strong>Riserva Punta Aderci (35 min):</strong> Spiagge selvagge e tramonti.</li>
+                    <li><strong>Cena sul Trabocco:</strong> Esperienza culinaria sospesa sul mare.</li>
+                </ul>
+            </div>
+
+            <div class="content-box">
+                <h3>🍷 Enogastronomia</h3>
+                <ul class="styled-list">
+                    <li><strong>Cantine:</strong> Frentana, San Lorenzo, Eredi Legonziano.</li>
+                    <li><strong>Ristoranti:</strong> La Vecchia Collina, Il Pastore Abruzzese.</li>
+                    <li><strong>Tipicità:</strong> Arrosticini, olio d'oliva, vino Montepulciano.</li>
+                </ul>
+            </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="contatti" style="background: #f4f4f4;">
+      <div class="container">
+        <div class="media">
+            <div class="content-box">
+                <h2>Contatti & Prenotazioni</h2>
+                <p>Siamo a vostra disposizione per organizzare il vostro soggiorno perfetto.</p>
+                <p style="font-size: 1.2rem;">
+                    📧 <a href="mailto:info@bubblebee.it" style="color:var(--accent); text-decoration:none;">info@bubblebee.it</a><br>
+                    📞 <a href="tel:+393331234567" style="color:var(--text); text-decoration:none;">+39 333 123 4567</a>
+                </p>
+                <p>Seguici su Instagram: <strong>@bubblebee_retreat</strong></p>
+            </div>
+            <img src="https://images.unsplash.com/photo-1497215728101-856f4ea42174?q=80&w=1200&auto=format&fit=crop" alt="Reception">
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <footer>
+    <div class="container">
+      <p>&copy; 2026 <strong>BUBBLEBEE</strong> Luxury Retreat.</p>
+      <p>Sant’Eusanio del Sangro, VIA CASTELLATA 6 (Abruzzo, Italy)</p>
+    </div>
+  </footer>
+
+  <script>
+    // Menu mobile logic
+    const menuToggle = document.getElementById('menuToggle');
+    const mobileMenu = document.getElementById('mobileMenu');
+    const menuClose = document.getElementById('menuClose');
+
+    function openMenu(){
+      mobileMenu.classList.add('open');
+      document.body.style.overflow = 'hidden'; // Blocca lo scroll del sito sotto
+    }
+    function closeMenu(){
+      mobileMenu.classList.remove('open');
+      document.body.style.overflow = '';
+    }
+
+    menuToggle.addEventListener('click', openMenu);
+    menuClose.addEventListener('click', closeMenu);
+    
+    // Chiude il menu se clicchi fuori (opzionale) o su un link
+    mobileMenu.querySelectorAll('a').forEach(link => {
+        link.addEventListener('click', closeMenu);
+    });
+  </script>
+</body>
+</html>
